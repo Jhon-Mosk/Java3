@@ -79,7 +79,13 @@ public class ClientHandler {
                                 sendMsg("Вы сменили свой ник на: " + newNickname);
                             }
 
+                            if (str.startsWith("/history")) {
+                                StringBuilder sb = AuthService.getHistoryChat();
+                                out.writeUTF(sb.toString());
+                            }
+
                         } else {
+                            AuthService.saveHistory(nick, str);
                             server.broadcastMsg(this,nick + " " + str);
                         }
                         System.out.println("Client: " + str);

@@ -84,6 +84,9 @@ public class Controller {
                             chatArea.appendText(str + "\n");
                         }
                     }
+
+                    getHistory();
+
                     while (true) {
                         String str = in.readUTF();
 
@@ -144,5 +147,13 @@ public class Controller {
             e.printStackTrace();
         }
 
+    }
+
+    public void getHistory() {
+        try {
+            out.writeUTF("/history ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

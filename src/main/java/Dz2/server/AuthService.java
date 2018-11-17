@@ -45,6 +45,30 @@ public class AuthService {
         }
     }
 
+    public static void saveHistory(String login, String msg) {
+        String sql = String.format("INSERT INTO history (post, nick) " +
+                "VALUES ('%s', '%s')", msg, login);
+        try {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static StringBuilder getHistoryChat() {
+        StringBuilder sb = new StringBuilder();
+        String sql = String.format("SELECT nick, post FROM history ORDER BY id");
+        try {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                sb.append(rs.getString("nick") + " " + rs.getString("post") + "\n");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sb;
+    }
+
 
     public static void disconnect() {
         try {
